@@ -10,7 +10,7 @@
 
     <h1>food.jsp입니다.</h1>
 
-    <form action="/spring/food-select" method="get">
+    <form action="/spring/food-select" method="post">
         #음식명 : <input type="text" name="foodName" id=""> <br>
         #음식 카테고리 : 
         <select name="category">
