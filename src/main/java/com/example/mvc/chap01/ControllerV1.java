@@ -2,9 +2,7 @@ package com.example.mvc.chap01;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -83,6 +81,18 @@ public class ControllerV1 {
         System.out.println("userName = " + userName);
         System.out.println("bNo = " + bNo);
         return "";
+    }
+
+    //음식 선택 요청 처리
+    //@RequestMapping(value = "/food-select",method = RequestMethod.POST)
+    @PostMapping("/food-select")
+    public String foodSelect(
+            String foodName,
+            String category
+    ){
+        System.out.println("foodName = " + foodName);
+        System.out.println("category = " + category);
+        return "hello";
     }
 
 }
