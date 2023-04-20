@@ -93,8 +93,30 @@ public class ScoreController {
     public String detail(@RequestParam int stuNum, Model model){
         Score scoreByStuNum = repository.findScoreByStuNum(stuNum);
         System.out.println(scoreByStuNum); //자료 확인용
-        model.addAttribute("stuNum",scoreByStuNum);
+        model.addAttribute("s",scoreByStuNum);
         return "chap04/score-detail";
     }
+//    @PostMapping("/modify")
+//    public String modify(Model model){
+//        return "chap04/score-modify";
+//    }
+    @GetMapping("/modifyview")
+    public String modifyview(@RequestParam int stuNum,Model model){
+        Score scoreByStuNum = repository.findScoreByStuNum(stuNum);
+        System.out.println(scoreByStuNum); //자료 확인용
+        model.addAttribute("s",scoreByStuNum);
+        return "chap04/score-modify";
+    }
+
+    @PostMapping("/modify")
+    public String modify(int stuNum,ScoreRequestDTO dto){
+        Score scoreByStuNum = repository.findScoreByStuNum(stuNum);
+        scoreByStuNum.setKor(dto.getKor());
+        scoreByStuNum.setEng(dto.getEng());
+        scoreByStuNum.setMath(dto.getMath());
+        return "redirect:/score/detail?stuNum="+stuNum;
+    }
+
+
 
 }
