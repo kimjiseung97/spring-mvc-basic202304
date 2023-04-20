@@ -11,7 +11,11 @@ import java.util.List;
 public interface ScoreRepository {
 
     //성적 정보 전체 목록 조회
-    List<Score> findAll();
+    List<Score> findAll(); //일반 조회
+
+    default List<Score> findAll(String sort){
+        return null;
+    }//정렬 조회
 
     //성적정보 등록 처리 요청
     boolean saveScore(Score score);
@@ -21,4 +25,5 @@ public interface ScoreRepository {
 
     //성적 정보 개별 조회
     Score findScoreByStuNum(int stuNum);
+
 }

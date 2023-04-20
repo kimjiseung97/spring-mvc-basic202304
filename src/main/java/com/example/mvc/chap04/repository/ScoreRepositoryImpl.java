@@ -1,12 +1,9 @@
 package com.example.mvc.chap04.repository;
 
-import com.example.mvc.chap04.entity.Grade;
 import com.example.mvc.chap04.entity.Score;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static com.example.mvc.chap04.entity.Grade.*;
 import static java.util.Comparator.*;
@@ -30,7 +27,7 @@ public class ScoreRepositoryImpl  implements ScoreRepository{
         scoreMap.put(stu2.getStuNum(),stu2);
         scoreMap.put(stu3.getStuNum(),stu3);
     }
-
+    @Override
     public List<Score> findAll() {
         return new ArrayList<>(scoreMap.values())
                 .stream()
@@ -38,6 +35,27 @@ public class ScoreRepositoryImpl  implements ScoreRepository{
                 .collect(toList())
                 ;
     }
+    @Override
+    public List<Score> findAll(String sort) {
+        Comparator<Score> comparator = comparing(Score::getStuNum);
+        switch (sort) {
+            case "num":
+                comparator = comparing(Score::getStuNum);
+                break;
+            case "name":
+                comparator = comparing(Score::getName);
+                break;
+            case "avg":
+                comparator = comparing(Score::getAverage).reversed();
+                break;
+        }
+        return scoreMap.values()
+                .stream()
+                .sorted(comparator)
+                .collect(toList())
+                ;
+    }
+
 
     @Override
     public boolean saveScore(Score score) {
@@ -61,4 +79,6 @@ public class ScoreRepositoryImpl  implements ScoreRepository{
     public Score findScoreByStuNum(int stuNum) {
         return scoreMap.get(stuNum);
     }
+
+
 }

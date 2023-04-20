@@ -6,12 +6,14 @@ import com.example.mvc.chap04.repository.ScoreRepository;
 import com.example.mvc.chap04.repository.ScoreRepositoryImpl;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -47,9 +49,10 @@ public class ScoreController {
 //    }
     //성적 등록화면 띄우기 + 정보목록 조회
     @GetMapping("/list")
-    public String list(Model model){
+    public String list(Model model, @RequestParam(defaultValue = "num") String sort){
         System.out.println("/score/list : GET!");
-        List<Score> allScore = repository.findAll();
+        System.out.println("sort = " + sort);
+        List<Score> allScore = repository.findAll(sort);
         model.addAttribute("sList",allScore);
         return "chap04/score-list";
     }
@@ -78,17 +81,20 @@ public class ScoreController {
     }
 
     //성적 정보 삭제 요청
-    @PostMapping("/remove")
-    public  String remove(){
-        System.out.println("/score/remove : POST!");
-        return "";
+    @GetMapping("/remove")
+    public  String remove(@RequestParam int stuNum){
+        System.out.println("/score/remove : GET!");
+        repository.deleteScoreByStuNum(stuNum);
+        return "redirect:/score/list";
     }
 
     //성적정보 상세조회 요청
     @GetMapping("/detail")
-    public String detail(){
-        System.out.println("/score/detail : GET!");
-        return "";
+    public String detail(@RequestParam int stuNum, Model model){
+        Score scoreByStuNum = repository.findScoreByStuNum(stuNum);
+        System.out.println(scoreByStuNum); //자료 확인용
+        model.addAttribute("stuNum",scoreByStuNum);
+        return "chap04/score-detail";
     }
 
 }

@@ -48,7 +48,7 @@ public class Score {
 
     private void calcTotalAndAvg() {
         this.total = kor + eng + math;
-        this.average = total / 3.0;
+        this.average = Math.round(total / 3.0);
     }
 
 }
