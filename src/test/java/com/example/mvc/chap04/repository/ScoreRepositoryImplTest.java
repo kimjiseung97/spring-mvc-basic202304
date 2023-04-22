@@ -1,11 +1,9 @@
 package com.example.mvc.chap04.repository;
 
 import com.example.mvc.chap04.entity.Score;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -75,7 +73,7 @@ class ScoreRepositoryImplTest {
 
     void saveTest(){
         //given
-        Score score = new Score();
+        Score score = new Score("뽀로로", 100, 50, 70, ++sequence, 0, 0, A);
         score.setName("언년이");
         score.setKor(100);
         score.setEng(50);

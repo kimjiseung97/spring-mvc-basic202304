@@ -51,4 +51,12 @@ public class Score {
         this.average = Math.round(total / 3.0);
     }
 
+    public void changeScore(ScoreRequestDTO dto){
+        this.kor = dto.getKor();
+        this.math = dto.getMath();
+        this.eng = dto.getEng();
+        calcTotalAndAvg();
+        calcGrade();
+    }
+
 }
