@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.example.mvc.chap04.entity.Grade.A;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScoreRepositoryImplTest {
@@ -73,6 +74,7 @@ class ScoreRepositoryImplTest {
 
     void saveTest(){
         //given
+        int sequence = 1;
         Score score = new Score("뽀로로", 100, 50, 70, ++sequence, 0, 0, A);
         score.setName("언년이");
         score.setKor(100);

@@ -9,7 +9,7 @@ import static com.example.mvc.chap04.entity.Grade.*;
 import static java.util.Comparator.*;
 import static java.util.stream.Collectors.*;
 
-@Repository //스프링 빈 등록 : 객체생성의 제어권을 스프링에게 위임
+@Repository("b") //스프링 빈 등록 : 객체생성의 제어권을 스프링에게 위임
 public class ScoreRepositoryImpl  implements ScoreRepository{
 
     //key : 학번, value : 성적정보
@@ -79,6 +79,5 @@ public class ScoreRepositoryImpl  implements ScoreRepository{
     public Score findScoreByStuNum(int stuNum) {
         return scoreMap.get(stuNum);
     }
-
 
 }

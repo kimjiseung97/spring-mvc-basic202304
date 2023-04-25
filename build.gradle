@@ -28,6 +28,11 @@ dependencies {
 	// jsp 설정
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation 'javax.servlet:jstl:1.2'
+	//데이터 베이스연동 라이브러리
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	//maria db 커넥터
+	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.0.8'
+
 }
 
 tasks.named('test') {

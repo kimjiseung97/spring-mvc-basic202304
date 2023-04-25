@@ -3,7 +3,6 @@ package com.example.mvc.chap04.controller;
 import com.example.mvc.chap04.dto.ScoreListResponseDTO;
 import com.example.mvc.chap04.dto.ScoreRequestDTO;
 import com.example.mvc.chap04.entity.Score;
-import com.example.mvc.chap04.repository.ScoreRepository;
 import com.example.mvc.chap04.service.ScoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -37,7 +36,7 @@ import java.util.List;
 public class ScoreController {
 
     //저장소에 의존해야 데이터를 받아서 클라이언트에 전달가능
-    private final ScoreRepository repository;
+//    private final ScoreRepository repository;
 
     private final ScoreService scoreService;
     //만약에 클래스의 생성자가 단 한1개라면
