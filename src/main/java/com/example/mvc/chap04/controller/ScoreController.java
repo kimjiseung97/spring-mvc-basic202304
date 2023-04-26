@@ -1,5 +1,6 @@
 package com.example.mvc.chap04.controller;
 
+import com.example.mvc.chap04.dto.ScoreListResponseDTO;
 import com.example.mvc.chap04.dto.ScoreRequestDTO;
 import com.example.mvc.chap04.entity.Score;
 import com.example.mvc.chap04.service.ScoreService;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /*
 * # 요청 url
@@ -48,17 +51,17 @@ public class ScoreController {
     public String list(Model model, @RequestParam(defaultValue = "num") String sort){
         System.out.println("/score/list : GET!");
         System.out.println("sort = " + sort);
-//        List<ScoreListResponseDTO> allScore = scoreService.getList(sort);
+        List<ScoreListResponseDTO> allScore = scoreService.getList(sort);
 
         //scoreList에서 원하는정보만 추출하고 이름은 마스킹해서
         //다시 DTO리스트로 변환해줘야 한다.
-//        List<ScoreListResponseDTO> responseDTOList = new ArrayList<>();
+//        List<ScoreListResponseDTO> responseDTOList = scoreService.getList(sort);
 //        for (Score s : allScore) {
 //            ScoreListResponseDTO dto = new ScoreListResponseDTO(s);
 //            responseDTOList.add(dto);
 //        }
 //        List<ScoreListResponseDTO> responsedtoList = allScore.stream().map(ScoreListResponseDTO::new).collect(Collectors.toList());
-//        model.addAttribute("sList",allScore);
+        model.addAttribute("sList",allScore);
         return "chap04/score-list";
     }
 

@@ -3,10 +3,8 @@ package com.example.mvc.chap04.repository;
 import com.example.mvc.chap04.entity.Score;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 @Repository("jdbc")
 public class ScoreJdbcRepository implements ScoreRepository{
@@ -63,16 +61,57 @@ public class ScoreJdbcRepository implements ScoreRepository{
 
     @Override
     public boolean deleteScoreByStuNum(int stuNum) {
-        return false;
+        List<Score> scoreList = new ArrayList<>();
+        try(Connection conn = DriverManager.getConnection(url,username,password)){
+            String sql = "delete FROM tbl_score where stu_num=?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,stuNum);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                scoreList.add(new Score(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     @Override
     public Score findScoreByStuNum(int stuNum) {
+        Score score = null;
+        try(Connection conn = DriverManager.getConnection(url,username,password)){
+            String sql = "SELECT * FROM tbl_score where stu_num=?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,stuNum);
+            ResultSet rs = pstmt.executeQuery();
+
+            if(rs.next()){
+                score = new Score(rs);
+                return score;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
     @Override
     public List<Score> findAll(String sort) {
-        return ScoreRepository.super.findAll(sort);
+        List<Score> scoreList = new ArrayList<>();
+        try(Connection conn = DriverManager.getConnection(url,username,password)){
+            String sql = "SELECT * FROM tbl_score";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                scoreList.add(new Score(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return scoreList;
     }
 }
