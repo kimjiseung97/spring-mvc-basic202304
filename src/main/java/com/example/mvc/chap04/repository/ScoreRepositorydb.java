@@ -14,6 +14,16 @@ public class ScoreRepositorydb implements ScoreRepository{
     private String username = "root";
     private String password = "1234";
 
+    private static int sequnce;
+
+    static {
+        sequnce = 1;
+    }
+
+    @Override
+    public boolean save(Score score) {
+        return false;
+    }
 
     //db 에서 저장된 학생의 열 가져오는함수
     @Override
@@ -65,7 +75,7 @@ public class ScoreRepositorydb implements ScoreRepository{
             String sql = "INSERT INTO score (stunum,name,korean,english,math,total,average,grade) VALUES(?,?,?,?,?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             //?값 세팅하기
-            pstmt.setInt(1,score.getStuNum() +1);
+            pstmt.setInt(1,sequnce++);
             pstmt.setString(2, score.getName());
             pstmt.setInt(3,score.getKor());
             pstmt.setInt(4,score.getEng());

@@ -1,16 +1,12 @@
 package com.example.mvc.chap04.service;
 
 
-import com.example.mvc.chap04.dto.ScoreListResponseDTO;
 import com.example.mvc.chap04.dto.ScoreRequestDTO;
 import com.example.mvc.chap04.entity.Score;
 import com.example.mvc.chap04.repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 //컨트롤러와 레파지토리 사이 비즈니스 로직 처리
 //ex ) 트랜잭션 처리, 예외처리, dto변환처리
@@ -21,7 +17,7 @@ public class ScoreService {
     private final ScoreRepository scoreRepository;
 
     @Autowired
-    public ScoreService(@Qualifier("a") ScoreRepository scoreRepository) {
+    public ScoreService(@Qualifier("jdbc") ScoreRepository scoreRepository) {
         this.scoreRepository = scoreRepository;
     }
 
@@ -34,16 +30,16 @@ public class ScoreService {
     *
     * */
 
-    public List<ScoreListResponseDTO> getList(String sort) {
-
-        // scoreList에서 원하는 정보만 추출하고 이름을 마스킹해서
-        // 다시 DTO리스트로 변환해줘야 한다.
-        return scoreRepository.findAll()
-                .stream()
-                .map(s -> new ScoreListResponseDTO(s))
-                .collect(Collectors.toList());
-
-    }
+//    public List<ScoreListResponseDTO> getList(String sort) {
+//
+//        // scoreList에서 원하는 정보만 추출하고 이름을 마스킹해서
+//        // 다시 DTO리스트로 변환해줘야 한다.
+//        return scoreRepository.findAll()
+//                .stream()
+//                .map(s -> new ScoreListResponseDTO(s))
+//                .collect(Collectors.toList());
+//
+//    }
 
     //등록 중간처리
     //컨트롤러는 나한테 DTO를 줫지만
@@ -52,7 +48,7 @@ public class ScoreService {
     public boolean insertScore(ScoreRequestDTO dto){
         // dto(ScoreDTO)를 entity(Score)로 변환해야 함
         //save 명령
-        return scoreRepository.saveScore(new Score(dto));
+        return scoreRepository.save(new Score(dto));
     }
 
     //삭제 중간처리

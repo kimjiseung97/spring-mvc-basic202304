@@ -10,6 +10,8 @@ import java.util.List;
 //어디에서 조회? 어디에서 삭제?
 public interface ScoreRepository {
 
+    boolean save(Score score);
+
     //성적 정보 전체 목록 조회
     List<Score> findAll(); //일반 조회
 
