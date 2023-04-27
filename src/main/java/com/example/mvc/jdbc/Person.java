@@ -13,6 +13,7 @@ import java.sql.SQLException;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Person {
     private long id;
     private String personName;

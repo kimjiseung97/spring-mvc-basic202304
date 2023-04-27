@@ -36,6 +36,7 @@ public class BoardRepositoryImpl
                 ;
     }
 
+
     @Override
     public Board findOne(int boardNo) {
         return boardMap.get(boardNo);

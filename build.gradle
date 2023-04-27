@@ -32,6 +32,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	//maria db 커넥터
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.0.8'
+	//mybatis 라이브러리
+	// https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+	implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.2.2'
 
 }
 

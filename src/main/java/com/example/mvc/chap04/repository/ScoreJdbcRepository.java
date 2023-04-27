@@ -1,6 +1,7 @@
 package com.example.mvc.chap04.repository;
 
 import com.example.mvc.chap04.entity.Score;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -12,6 +13,12 @@ public class ScoreJdbcRepository implements ScoreRepository{
     private String url = "jdbc:mariadb://localhost:3307/spring";
     private String username = "root";
     private String password = "1234";
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public ScoreJdbcRepository() {
+        jdbcTemplate = null;
+    }
 
     @Override
     public boolean save(Score score){
@@ -102,6 +109,17 @@ public class ScoreJdbcRepository implements ScoreRepository{
         List<Score> scoreList = new ArrayList<>();
         try(Connection conn = DriverManager.getConnection(url,username,password)){
             String sql = "SELECT * FROM tbl_score";
+            switch (sort) {
+            case "num":
+                sql += " ORDER BY stu_num";
+                break;
+            case "name":
+                sql += " ORDER BY name";
+                break;
+            case "avg":
+                sql += " ORDER BY average DESC";
+                break;
+        }
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             ResultSet rs = pstmt.executeQuery();
@@ -114,4 +132,24 @@ public class ScoreJdbcRepository implements ScoreRepository{
         }
         return scoreList;
     }
+//    @Override
+//    public List<Score> findAll(String sort) {
+//        String sql = "SELECT * FROM tbl_score";
+//        switch (sort) {
+//            case "num":
+//                sql += " ORDER BY stu_num";
+//                break;
+//            case "name":
+//                sql += " ORDER BY stu_name";
+//                break;
+//            case "avg":
+//                sql += " ORDER BY average DESC";
+//                break;
+//        }
+//
+//        return jdbcTemplate.query(sql,
+//                (rs, n) -> new Score(rs));
+//
+//    }
+
 }
