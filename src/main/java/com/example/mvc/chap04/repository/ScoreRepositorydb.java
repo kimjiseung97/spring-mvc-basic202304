@@ -61,7 +61,7 @@ public class ScoreRepositorydb implements ScoreRepository{
 
     @Override
     public List<Score> findAll(String sort) {
-        return ScoreRepository.super.findAll(sort);
+        return null;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class ScoreRepositorydb implements ScoreRepository{
             PreparedStatement pstmt = conn.prepareStatement(sql);
             //?값 세팅하기
             pstmt.setInt(1,sequnce++);
-            pstmt.setString(2, score.getName());
+            pstmt.setString(2, score.getStuName());
             pstmt.setInt(3,score.getKor());
             pstmt.setInt(4,score.getEng());
             pstmt.setInt(5,score.getMath());

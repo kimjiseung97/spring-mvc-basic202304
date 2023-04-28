@@ -26,10 +26,10 @@ public class ScoreJdbcRepository implements ScoreRepository{
         try (Connection conn = DriverManager.getConnection(url,username,password)){
             conn.setAutoCommit(false);
             String sql = "INSERT INTO tbl_score" +
-                    "(name, kor, eng,math,total,average,grade)" +
+                    "(stu_name,kor,eng,math,total,average,grade)" +
                     "VALUES(?,?,?,?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,score.getName());
+            pstmt.setString(1,score.getStuName());
             pstmt.setInt(2,score.getKor());
             pstmt.setInt(3,score.getEng());
             pstmt.setInt(4,score.getMath());

@@ -14,10 +14,10 @@ public class ScoreSpringRepository implements ScoreRepository{
     private final JdbcTemplate jdpJdbcTemplate;
     @Override
     public boolean save(Score score) {
-        String sql = "INSERT INTO tbl_score"+ " (name, kor, eng, math, total, average, grade) " +
+        String sql = "INSERT INTO tbl_score"+ "(stu_name, kor, eng, math, total, average, grade) " +
                 " VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        return jdpJdbcTemplate.update(sql,score.getName(),score.getKor(),score.getEng(),score.getMath(),score.getTotal(),score.getAverage(),String.valueOf(score.getGrade()))==1;
+        return jdpJdbcTemplate.update(sql,score.getStuName(),score.getKor(),score.getEng(),score.getMath(),score.getTotal(),score.getAverage(),String.valueOf(score.getGrade()))==1;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ScoreSpringRepository implements ScoreRepository{
                 sql += " ORDER BY stu_num";
                 break;
             case "name":
-                sql += " ORDER BY name";
+                sql += " ORDER BY stu_name";
                 break;
             case "avg":
                 sql += " ORDER BY average DESC";
