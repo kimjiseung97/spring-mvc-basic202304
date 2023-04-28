@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mvc.chap04.repository.ScoreMapper">
+
+    <select id="findAll" resultType="score">
+        SELECT
+            *
+        FROM tbl_score
+        <if test="sort == 'num'">
+            ORDER BY stu_num
+        </if>
+        <if test="sort == 'name'">
+            ORDER BY stu_num
+        </if>
+        <if test="sort == 'avg'">
+            ORDER BY stu_num
+        </if>
+    </select>
+
+    <insert id="save">
+        INSERT INTO tbl_score
+        (stu_name, kor, eng, math, total, average, grade)
+        VALUES (#{stuName}, #{kor},
+        #{eng}, #{math}, #{total},
+        #{average}, #{grade})
+    </insert>
+
+    <delete id="deleteByStuNum">
+        DELETE FROM tbl_score
+        WHERE stu_num=#{stuNum}
+    </delete>
+
+    <select id="findByStuNum" resultType="score">
+        SELECT *
+        FROM tbl_score
+        WHERE stu_num=#{stuNum}
+    </select>
+
+</mapper>

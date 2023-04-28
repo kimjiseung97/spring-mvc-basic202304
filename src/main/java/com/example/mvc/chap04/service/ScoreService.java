@@ -4,6 +4,7 @@ package com.example.mvc.chap04.service;
 import com.example.mvc.chap04.dto.ScoreListResponseDTO;
 import com.example.mvc.chap04.dto.ScoreRequestDTO;
 import com.example.mvc.chap04.entity.Score;
+import com.example.mvc.chap04.repository.ScoreMapper;
 import com.example.mvc.chap04.repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,10 +19,10 @@ import java.util.stream.Collectors;
 @Service
 public class ScoreService {
 
-    private final ScoreRepository scoreRepository;
-
+//    private final ScoreRepository scoreRepository;
+    private final ScoreMapper scoreRepository;
     @Autowired
-    public ScoreService(@Qualifier("spring") ScoreRepository scoreRepository) {
+    public ScoreService(ScoreMapper scoreRepository) {
         this.scoreRepository = scoreRepository;
     }
 
