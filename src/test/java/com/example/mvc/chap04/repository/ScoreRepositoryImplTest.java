@@ -65,10 +65,6 @@ class ScoreRepositoryImplTest {
 
 
 
-
-
-
-
     @Test
     @DisplayName("새로운 성적정보를 save를 통해 추가하면" + "목록의 개수가 4개여야한다.")
 
@@ -88,6 +84,7 @@ class ScoreRepositoryImplTest {
         assertEquals(4, scoreList.get(scoreList.size() - 1).getStuNum());
         assertTrue(flag);
     }
+
 
 
 }
