@@ -49,4 +49,8 @@ public class BoardService {
         boardRepository.upViewCount(bno);
         return new BorderDetailResponseDTO(board);
     }
+
+    public int getCount() {
+        return boardRepository.count();
+    }
 }

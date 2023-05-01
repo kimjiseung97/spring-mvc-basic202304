@@ -34,7 +34,12 @@
 
     <update id="upViewCount">
         update tbl_board
-        set view_count = view_count +1
+        set view_count = view_count + 1
         where board_no =#{boardNo}
     </update>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_board
+    </select>
 </mapper>

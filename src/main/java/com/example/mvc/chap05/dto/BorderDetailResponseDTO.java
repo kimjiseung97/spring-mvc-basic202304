@@ -20,7 +20,7 @@ public class BorderDetailResponseDTO {
     public BorderDetailResponseDTO(Board board) {
         this.boardNo = board.getBoardNo();
         this.title = board.getTitle();
-        this.content = board.getTitle();
+        this.content = board.getContent();
         this.date = BoardListResponseDTO.makePrettierDateString(board.getRegDateTime());
     }
 }

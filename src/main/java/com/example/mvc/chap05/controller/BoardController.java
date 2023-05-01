@@ -3,6 +3,7 @@ package com.example.mvc.chap05.controller;
 import com.example.mvc.chap05.dto.BoardListResponseDTO;
 import com.example.mvc.chap05.dto.BoardWriteRequstDTO;
 import com.example.mvc.chap05.dto.page.Page;
+import com.example.mvc.chap05.dto.page.PageMaker;
 import com.example.mvc.chap05.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,11 @@ public class BoardController {
         log.info("page : {}",page);
         List<BoardListResponseDTO> responseDTOS
                 = boardService.getList(page);
+
+        //페이징 알고리즘 작동
+        PageMaker maker = new PageMaker(page,boardService.getCount());
         model.addAttribute("bList", responseDTOS);
+        model.addAttribute("maker",maker);
         return "chap05/list";
     }
 
@@ -64,6 +69,8 @@ public class BoardController {
 
         return "/chap05/detail";
     }
+
+
 
 
 
