@@ -1,0 +1,95 @@
+[33mcommit 0f2acc61ea137a4f974fab92386f4e7efc0bc721[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: jisuengkim <dickseung23@naver.com>
+Date:   Thu Apr 27 17:53:51 2023 +0900
+
+    # 8 mybatis Score변경
+
+[33mcommit a82d05f976cca472c71fc20a35160dd7a8642e73[m
+Author: jisuengkim <dickseung23@naver.com>
+Date:   Thu Apr 27 16:26:04 2023 +0900
+
+    # 8 mybatis 설정 및 테스트 예제
+
+[33mcommit 79699b2f9b8daa595173af7893e1c9bf9ae58274[m
+Author: jisuengkim <dickseung23@naver.com>
+Date:   Wed Apr 26 17:19:12 2023 +0900
+
+    # 6-3. jdbc템플릿 예제 테스트 코드 작성
+
+[33mcommit d9365c0aec08d939360a2e8f7f3f45a6750c3133[m
+Author: jisuengkim <dickseung23@naver.com>
+Date:   Wed Apr 26 15:47:42 2023 +0900
+
+    # 6-2. 학생 점수 마리아 db연동 삭제 추가 개별점수 상세조회 기능 추가(jdbc)
+
+[33mcommit 62d08ee95ce66d196d86acbdfe7a008dce11174c[m
+Author: jisuengkim <dickseung23@naver.com>
+Date:   Wed Apr 26 14:57:14 2023 +0900
+
+    # 6-2. 학생 점수 마리아 db연동 저장
+
+[33mcommit 75f9a94b57c82aa037d8c72c041bc511f961940a[m
+Author: jisuengkim <dickseung23@naver.com>
+Date:   Tue Apr 25 17:36:56 2023 +0900
+
+    # 6-1. 학생 점수 마리아 db연동 저장
+
+[33mcommit 455e81546f6080e080866d5543884830fe012bb5[m
+Author: jisuengkim <dickseung23@naver.com>
+Date:   Sat Apr 22 21:22:20 2023 +0900
+
+    # 6. 글 목록 보기 상세조회 삭제 추가기능
+
+[33mcommit d071e85bdb5491f49d2455f8a109a04a08fa5af7[m
+Author: jisuengkim <dickseung23@naver.com>
+Date:   Thu Apr 20 23:19:54 2023 +0900
+
+    # 5. 학생 상세정보보기 성적순 학번순 조회 기능구현
+
+[33mcommit 7488119455ac650f44b14e0ff70c274057983c6e[m
+Author: jisuengkim <dickseung23@naver.com>
+Date:   Thu Apr 20 15:50:28 2023 +0900
+
+    # 5. 학생 상세정보보기 성적순 학번순 조회 기능구현
+
+[33mcommit 1ac5833f4e8507d96d5a7bd367bd98a46de016e3[m
+Author: jisuengkim <dickseung23@naver.com>
+Date:   Thu Apr 20 12:19:23 2023 +0900
+
+    # 4. 학생 성적 등록,조회,삭제 기능 구현
+
+[33mcommit 4fac12a029d25926d0a558cd214fc3c80476aaa2[m
+Author: jisuengkim <dickseung23@naver.com>
+Date:   Thu Apr 20 09:49:31 2023 +0900
+
+    # 4. 학생 성적 등록,조회,삭제 기능 구현
+
+[33mcommit cc4cad667fd29b4e58bbf02477cf6405e198d28c[m
+Author: jisuengkim <dickseung23@naver.com>
+Date:   Wed Apr 19 22:09:38 2023 +0900
+
+    # 3. 통합 예제
+
+[33mcommit 9da6735485e436177d45c45a1680f51df4bd5eba[m
+Author: jisuengkim <dickseung23@naver.com>
+Date:   Wed Apr 19 15:44:31 2023 +0900
+
+    # 3. 통합 예제
+
+[33mcommit 847ac5a89ed4e5ee73304271286ce24ca3f101b3[m
+Author: jisuengkim <dickseung23@naver.com>
+Date:   Wed Apr 19 12:33:02 2023 +0900
+
+    # 2. get방식 post방식 비교
+
+[33mcommit 2d8db9f74581d00f20b618a8fb415004911ca8b7[m
+Author: jisuengkim <dickseung23@naver.com>
+Date:   Wed Apr 19 11:43:46 2023 +0900
+
+    # 1. 요청 데이터 읽기(쿼리스트링, 커맨드객체, 경로문자열)
+
+[33mcommit fc2d29188aa1f773a78782a80b3e2f5148de41cb[m
+Author: jisuengkim <dickseung23@naver.com>
+Date:   Wed Apr 19 11:24:52 2023 +0900
+
+    Initial commit
