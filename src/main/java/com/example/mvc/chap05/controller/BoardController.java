@@ -2,8 +2,10 @@ package com.example.mvc.chap05.controller;
 
 import com.example.mvc.chap05.dto.BoardListResponseDTO;
 import com.example.mvc.chap05.dto.BoardWriteRequstDTO;
+import com.example.mvc.chap05.dto.page.Page;
 import com.example.mvc.chap05.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,15 +17,17 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/board")  //공통url
+@Slf4j
 public class BoardController {
 
     private final BoardService boardService; //서비스에게 의존함
 
     @GetMapping("/list") //세부 url getMapping
-    public String list(Model model) {
-        System.out.println("/board/list : GET");
+    public String list(Model model, Page page) {
+        log.info("/board/list : GET");
+        log.info("page : {}",page);
         List<BoardListResponseDTO> responseDTOS
-                = boardService.getList();
+                = boardService.getList(page);
         model.addAttribute("bList", responseDTOS);
         return "chap05/list";
     }

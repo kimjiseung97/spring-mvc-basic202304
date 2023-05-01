@@ -10,6 +10,7 @@
         content, view_count, reg_date_time
         FROM tbl_board
         ORDER BY board_no DESC
+        LIMIT #{pageStart},#{amount}
     </select>
 
     <select id="findOne" resultType="board">
