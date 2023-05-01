@@ -14,19 +14,16 @@ public interface ScoreMapper {
 
     boolean save(Score score);
 
-    //성적 정보 전체 목록 조회
-    List<Score> findAll(); //일반 조회
-
-    List<Score> findAll(String sort);
     //정렬 조회
 
+    List<Score> findAll(String sort);
+
     //성적정보 등록 처리 요청
-    boolean saveScore(Score score);
 
     //성적 정보 한개 삭제
-    boolean deleteScoreByStuNum(int stuNum);
+    boolean deleteByStuNum(int stuNum);
 
     //성적 정보 개별 조회
-    Score findScoreByStuNum(int stuNum);
+    Score findByStuNum(int stuNum);
 
 }

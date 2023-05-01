@@ -2,6 +2,7 @@ package com.example.mvc.mybatis;
 
 import com.example.mvc.chap04.dto.ScoreRequestDTO;
 import com.example.mvc.chap04.entity.Score;
+import com.example.mvc.chap04.repository.ScoreMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

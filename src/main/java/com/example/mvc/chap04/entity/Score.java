@@ -28,12 +28,7 @@ public class Score {
 
     public Score(ScoreRequestDTO dto) {
         this.stuName = dto.getName();
-        this.kor = dto.getKor();
-        this.math = dto.getMath();
-        this.eng = dto.getEng();
-        this.total = kor+eng+math;
-        calcTotalAndAvg(); //총점 ,평균 계산
-        calcGrade(); // 학점 계산
+        changeScore(dto);
     }
 
     public Score(ResultSet rs) throws SQLException {

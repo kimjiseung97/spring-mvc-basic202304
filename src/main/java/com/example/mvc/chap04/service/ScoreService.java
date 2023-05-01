@@ -41,7 +41,7 @@ public class ScoreService {
         // 다시 DTO리스트로 변환해줘야 한다.
         return scoreRepository.findAll(sort)
                 .stream()
-                .map(s -> new ScoreListResponseDTO(s))
+                .map(ScoreListResponseDTO::new)
                 .collect(Collectors.toList());
 
     }
@@ -58,15 +58,13 @@ public class ScoreService {
 
     //삭제 중간처리
     public boolean delete(int stuNum){
-        return scoreRepository.deleteScoreByStuNum(stuNum);
+        return scoreRepository.deleteByStuNum(stuNum);
     }
 
     //상세조회, 수정화면조회 중간처리
     public Score retrieve(int stuNum){
-        return scoreRepository.findScoreByStuNum(stuNum);
+        return scoreRepository.findByStuNum(stuNum);
     }
 
 
-//    public List<Score>findAll() {
-//    }
 }
