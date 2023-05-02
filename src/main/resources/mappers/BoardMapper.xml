@@ -18,7 +18,6 @@
         <if test="type =='tc'">
             WHERE  LIKE CONCAT('%',#{keyword}, '%')
                 OR content LIKE CONCAT('%', #{keyword}, '%')
-
         </if>
         ORDER BY board_no DESC
         LIMIT #{pageStart},#{amount}

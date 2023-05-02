@@ -4,6 +4,7 @@ import com.example.mvc.chap05.dto.page.Page;
 import com.example.mvc.chap05.dto.page.Search;
 import com.example.mvc.chap05.entity.Board;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

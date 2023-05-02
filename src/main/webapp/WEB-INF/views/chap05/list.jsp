@@ -35,6 +35,29 @@
             <button class="add-btn">새 글 쓰기</button>
         </div>
 
+        <div class="top-section">
+            <!-- 검색창 영역 -->
+            <div class="search">
+                <form action="/board/list" method="get">
+                    
+                    <select class="form-select" name="type" id="search-type">
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                        <option value="writer">작성자</option>
+                        <option value="tc">제목+내용</option>
+                    </select>
+
+                    <input type="text" class="form-control" name="keyword" value="${s.keyword}">
+
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+
+                </form>
+            </div>
+        </div>
+
+
         <div class="card-container">
 
             <c:forEach var="b" items="${bList}">
@@ -79,20 +102,23 @@
 
                     
                     <c:if test="${maker.prev}">
-                        <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.begin - 1}">prev</a></li>
+                        <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.begin - 1}&type=${s.type}&keyword=${s.keyword}">prev</a></li>
                     </c:if>
 
                     <c:forEach var="i" begin="${maker.begin}" end="${maker.end}">
                         <li data-page-num="${i}" class="page-item">
-                            <a class="page-link" href="/board/list?pageNo=${i}">${i}</a>
+                            <a class="page-link" href="/board/list?pageNo=${i}&type=${s.type}&keyword=${s.keyword}">${i}</a>
                         </li>
                     </c:forEach>
                     
                     
                     <c:if test="${maker.next}">
-                        <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.end + 1}">next</a></li>
+                        <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.end + 1}&type=${s.type}&keyword=${s.keyword}">next</a></li>
                     </c:if>
-
+                    
+                    <c:if test="${maker.page.pageNo != maker.finalPage}">
+                        <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.finalPage}&type=${s.type}&keyword=${s.keyword}">&gt;&gt;</a></li>
+                    </c:if>
 
                 </ul>
             </nav>
@@ -151,7 +177,7 @@
                 // section태그에 붙은 글번호 읽기
                 const bno = e.target.closest('section.card').dataset.bno;
                 // 요청 보내기
-                window.location.href= '/board/detail?bno=' + bno;
+                window.location.href= '/board/detail?bno=' + bno + '&pageNo=${s.pageNo}&type=${s.type}&keyword=${s.keyword}';
             }
         });
 
@@ -161,7 +187,7 @@
                 modal.style.display = 'none';
             }
         });
-
+        
         //========== 게시물 목록 스크립트 ============//
 
         function removeDown(e) {
@@ -232,7 +258,22 @@
 
         }
 
+        // 셀렉트옵션 검색타입 태그 고정
+        function fixSearchOption() {
+            const $select = document.getElementById('search-type');
+
+            for (let $opt of [...$select.children]) {
+                if ($opt.value === '${s.type}') {
+                    $opt.setAttribute('selected', 'selected');
+                    break;
+                }
+            }
+        }
+
+
+
         appendPageActive();
+        fixSearchOption();
 
 
     </script>
