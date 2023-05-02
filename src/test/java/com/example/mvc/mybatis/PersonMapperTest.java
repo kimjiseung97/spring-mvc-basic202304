@@ -33,7 +33,7 @@ class PersonMapperTest {
     @DisplayName("마이바티스 매퍼로 사람정보 수정에 성공해야 한다.")
     void changeTest(){
         //given
-        Person p = Person.builder().personName("손인욱").personAge(29).id(3L).build();
+        Person p = Person.builder().personName("손인욱").personAge(29).id(2L).build();
 
         //when
         boolean flag = mapper.change(p);

@@ -4,6 +4,7 @@ import com.example.mvc.chap05.dto.BoardListResponseDTO;
 import com.example.mvc.chap05.dto.BoardWriteRequstDTO;
 import com.example.mvc.chap05.dto.page.Page;
 import com.example.mvc.chap05.dto.page.PageMaker;
+import com.example.mvc.chap05.dto.page.Search;
 import com.example.mvc.chap05.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,14 +25,14 @@ public class BoardController {
     private final BoardService boardService; //서비스에게 의존함
 
     @GetMapping("/list") //세부 url getMapping
-    public String list(Model model, Page page) {
+    public String list(Model model, Search page) {
         log.info("/board/list : GET");
         log.info("page : {}",page);
         List<BoardListResponseDTO> responseDTOS
                 = boardService.getList(page);
 
         //페이징 알고리즘 작동
-        PageMaker maker = new PageMaker(page,boardService.getCount());
+        PageMaker maker = new PageMaker(page,boardService.getCount(page));
         model.addAttribute("bList", responseDTOS);
         model.addAttribute("maker",maker);
         return "chap05/list";
