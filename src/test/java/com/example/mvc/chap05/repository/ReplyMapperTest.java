@@ -44,13 +44,15 @@ class ReplyMapperTest {
     void saveTest(){
         //given
         long BoardNo = 3L;
-        Reply newReply = Reply.builder().replyText("세이브세이브").replyWriter("잼민이2").boardNo(BoardNo).build();
+        Reply newReply = Reply.builder().replyText("세이브세이브").replyWriter("긴또깡").boardNo(BoardNo).build();
 
         //when
         boolean flag = replyMapper.save(newReply);
 
         assertTrue(flag); //세이브가 성공했을거라고 단언한다.
 
-        assertEquals(5,replyMapper.count(BoardNo));
+        assertEquals(2,replyMapper.count(BoardNo));
     }
+
+
 }

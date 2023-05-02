@@ -39,9 +39,10 @@
         LIMIT #{p.pageStart}, #{p.amount}
     </select>
 
-    <select id="count">
+    <select id="count" resultType="int">
         SELECT COUNT(*)
         FROM tbl_reply
+        WHERE board_no = #{boardNo}
     </select>
 
 
