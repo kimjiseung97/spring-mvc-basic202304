@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 //@Controller
-@RequestMapping("rests")
+@RequestMapping("/rests")
 //@ResponseBody
 public class RestApiController {
 
@@ -47,7 +47,7 @@ public class RestApiController {
         if(cm == null || kg==null){
             return ResponseEntity.badRequest().body("키랑 몸무게를 보내주세요");
         }
-        double bmi = kg / (cm / 100) * (cm / 100);
+        double bmi = kg / ((cm / 100) * (cm / 100));
         HttpHeaders headers = new HttpHeaders();
         headers.add("fruits","melon");
         headers.add("hobby","soccer");
