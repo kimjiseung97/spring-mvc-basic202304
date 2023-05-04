@@ -1,17 +1,18 @@
 package com.example.mvc.chap05.api;
 
 import com.example.mvc.chap05.dto.ReplyListResponseDTO;
+import com.example.mvc.chap05.dto.ReplyPostRequestDTO;
 import com.example.mvc.chap05.dto.page.Page;
 import com.example.mvc.chap05.entity.Reply;
 import com.example.mvc.chap05.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -35,6 +36,32 @@ public class ReplyController {
         page.setAmount(10);
         ReplyListResponseDTO list = replyService.getList(boardNo,page);
         return ResponseEntity.ok().body(list);
+    }
+
+    @PostMapping
+    //댓글 등록 요청
+    public ResponseEntity<?> create(
+            //요청 메시지 바디에 json으로 보내주세요
+            //요청데이터 검증하겠다 @Validated
+            @Validated @RequestBody ReplyPostRequestDTO dto, BindingResult result //검증결과를 가진객체
+    ) {
+        //입력값 검증에 걸리면 4xx 상태코드 리턴
+        if(result.hasErrors()){
+             return ResponseEntity.badRequest().body(result.toString());
+        }
+        log.info("/api/v1/replies : POST!");
+        log.info("param :{}", dto);
+        //서비스에 비즈니스 오직 처리 위임
+        ReplyListResponseDTO responseDTO;
+        try {
+            responseDTO = replyService.register(dto);
+        } catch (Exception e) {
+            //문제 발생상황을 클라이언트에게 응답
+            log.warn("500 Status code response!! caused by : {}", e.getMessage());
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+        //성공시클라이언트에 응답하기
+        return ResponseEntity.ok(responseDTO);
     }
 
 
