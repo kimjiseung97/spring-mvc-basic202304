@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/replies")
 @Slf4j
+//클라이언트의 접근을 app에서만 허용할 것인가
+
+@CrossOrigin(origins = {"http://127.0.0.1:5500"})
 public class ReplyController {
 
     private final ReplyService replyService;
