@@ -364,6 +364,19 @@
                     body : JSON.stringify(payload)
                 };
 
+                //클라이언트 입력값 검증
+                if($rt.value.trim()===''){
+                    alert('댓글 내용은 필수입니다');
+                    return;
+                }
+                else if($rw.value.trim()===''){
+                    alert('댓글 작성자 이름은 필수입니다.');
+                    return;
+                }
+                else if($rw.value.trim().length<2 || $rw.value.trim().length>8){
+                    alert('댓글작성자 이름은 2글자에서 8글자 사이로입력해주세요');
+                }
+
                 // # 서버에 post요청 보내기
                 fetch(url,requestInfo)
                 .then(res=>{
