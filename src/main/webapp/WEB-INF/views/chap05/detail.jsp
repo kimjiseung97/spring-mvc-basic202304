@@ -369,7 +369,11 @@
                 .then(res=>{
                     if(res.status===200){
                         alert('댓글이 정상등록됌');
-                        getReplyList();
+                        //마지막 페이지 번호
+                        const lastPageNo = document.querySelector('.pagination').dataset.fp;
+                        getReplyList(lastPageNo);
+                        $rw.value = "";
+                        $rt.value = "";
                     }else{
                         alert('댓글 등록에 실패');
                     }
