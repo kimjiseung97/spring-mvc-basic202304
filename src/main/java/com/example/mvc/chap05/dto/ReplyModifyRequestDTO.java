@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class ReplyModifyRequestDTO {
 
     @NotNull
