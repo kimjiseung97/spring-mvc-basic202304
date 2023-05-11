@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 import static com.example.mvc.chap05.service.LoginResult.*;
 
@@ -57,13 +55,18 @@ public class MemberController {
 
     //로그인 화면 요청
     @GetMapping("sign-in")
-    public String signIn(){
+    public String signIn(HttpServletRequest request){
         log.info("/members/sign-up GET - forwarding to jsp");
+        //요청정보 헤더 안에는 Referer라는 키가 있는데
+        //여기 값은 이페이지로 들어올 때 어디에서 왔는지에 대한
+        //uri정보가 기록되어있음
+        String referer = request.getHeader("Referer");
+        log.info("referer : {}",referer);
         return "members/sign-in";
     }
     //로그인 검증 요청
     @PostMapping("sign-in")
-    public String signIn(LoginRequestDTO dto, RedirectAttributes ra, HttpServletResponse response) {
+    public String signIn(LoginRequestDTO dto, RedirectAttributes ra, HttpServletResponse response, HttpServletRequest request) {
         //리다이렉션시 두번째 응답에 데이터를 보내기 위함
         log.info("/members/sign-in POST ! :"+dto);
 
@@ -71,14 +74,16 @@ public class MemberController {
 
         //로그인 성공시
         if(result== SUCCESS){
-            //쿠키 만들기 (http의 무상태성을 해결하기위해)
-            Cookie loginCookie = new Cookie("login","홍길동");
-            //쿠키 셋팅 (유효범위설정)
-            loginCookie.setPath("/");
-            loginCookie.setMaxAge(60 * 60 * 24);
 
-            //쿠키를 응답시에 실어서 클라이언트에 전송해야한다
-            response.addCookie(loginCookie);
+            memberService.maintainLoginState(request.getSession(),dto.getAccount());
+//            //쿠키 만들기 (http의 무상태성을 해결하기위해)
+//            Cookie loginCookie = new Cookie("login","홍길동");
+//            //쿠키 셋팅 (유효범위설정)
+//            loginCookie.setPath("/");
+//            loginCookie.setMaxAge(60 * 60 * 24);
+//
+//            //쿠키를 응답시에 실어서 클라이언트에 전송해야한다
+//            response.addCookie(loginCookie);
             return "redirect:/";
         }
         //1회용으로 쓰고 버릴 데이터
@@ -88,7 +93,18 @@ public class MemberController {
         return "redirect:/members/sign-in";
     }
 
+    //로그아웃 요청
+    @GetMapping("/sign-out")
+    public String signOut(HttpServletRequest request){
+        //세션에서 login정보를 제거
+        HttpSession session = request.getSession();
+        session.removeAttribute("login");
 
+        //세션을 아예 초기화(세션만료 시간)
+        session.invalidate();
+
+        return "redirect:/";
+    }
 
 
 

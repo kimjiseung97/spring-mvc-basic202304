@@ -30,14 +30,19 @@ public class BoardController {
     @GetMapping("/list") //세부 url getMapping
     public String list(Model model, Search page, HttpServletRequest request) {
         boolean flag = false;
-        //쿠키를 확인
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if(cookie.getName().equals("login")){
-                flag= true;
-                break;
-            }
-        }
+        //세션을 확인
+        Object login = request.getSession().getAttribute("login");
+
+        if(login!=null) flag=true;
+
+////쿠키를 확인
+//        Cookie[] cookies = request.getCookies();
+//        for (Cookie cookie : cookies) {
+//            if(cookie.getName().equals("login")){
+//                flag= true;
+//                break;
+//            }
+//        }
         if(!flag) return "redirect:/members/sign-in";
         log.info("/board/list : GET");
         log.info("page : {}",page);
