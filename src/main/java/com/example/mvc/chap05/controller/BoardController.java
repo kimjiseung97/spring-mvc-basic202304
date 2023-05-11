@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -26,7 +28,17 @@ public class BoardController {
     private final BoardService boardService; //서비스에게 의존함
 
     @GetMapping("/list") //세부 url getMapping
-    public String list(Model model, Search page) {
+    public String list(Model model, Search page, HttpServletRequest request) {
+        boolean flag = false;
+        //쿠키를 확인
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if(cookie.getName().equals("login")){
+                flag= true;
+                break;
+            }
+        }
+        if(!flag) return "redirect:/members/sign-in";
         log.info("/board/list : GET");
         log.info("page : {}",page);
         List<BoardListResponseDTO> responseDTOS
