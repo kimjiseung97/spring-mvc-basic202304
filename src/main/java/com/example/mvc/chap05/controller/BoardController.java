@@ -6,6 +6,7 @@ import com.example.mvc.chap05.dto.page.Page;
 import com.example.mvc.chap05.dto.page.PageMaker;
 import com.example.mvc.chap05.dto.page.Search;
 import com.example.mvc.chap05.service.BoardService;
+import com.example.mvc.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -29,11 +31,11 @@ public class BoardController {
 
     @GetMapping("/list") //세부 url getMapping
     public String list(Model model, Search page, HttpServletRequest request) {
-        boolean flag = false;
-        //세션을 확인
-        Object login = request.getSession().getAttribute("login");
-
-        if(login!=null) flag=true;
+//        boolean flag = false;
+//        //세션을 확인
+//        Object login = request.getSession().getAttribute("login");
+//
+//        if(login!=null) flag=true;
 
 ////쿠키를 확인
 //        Cookie[] cookies = request.getCookies();
@@ -43,7 +45,7 @@ public class BoardController {
 //                break;
 //            }
 //        }
-        if(!flag) return "redirect:/members/sign-in";
+//        if(!flag) return "redirect:/members/sign-in";
         log.info("/board/list : GET");
         log.info("page : {}",page);
         List<BoardListResponseDTO> responseDTOS
@@ -60,15 +62,19 @@ public class BoardController {
 
     //글 등록 요청 함수
     @PostMapping("/write")
-    public String write(BoardWriteRequstDTO dto){
+    public String write(BoardWriteRequstDTO dto,HttpSession session){
         System.out.println("/board/write : POST");
-        boardService.register(dto);
+        boardService.register(dto,session);
         return "redirect:/board/list";
     }
 
     // 글쓰기 화면 요청 함수
     @GetMapping("/write")
-    public  String write(){
+    public  String write(HttpSession session){
+
+//        if(!LoginUtil.isLogin(session)){
+//            return "redirect:/members/sign-in";
+//        }
         System.out.println("/board/write : GET");
         return "chap05/write";
     }

@@ -16,11 +16,14 @@ public class BorderDetailResponseDTO {
 
     private final String date;
 
+    private final String writer;
+
 
     public BorderDetailResponseDTO(Board board) {
         this.boardNo = board.getBoardNo();
         this.title = board.getTitle();
         this.content = board.getContent();
         this.date = BoardListResponseDTO.makePrettierDateString(board.getRegDateTime());
+        this.writer = board.getWriter();
     }
 }

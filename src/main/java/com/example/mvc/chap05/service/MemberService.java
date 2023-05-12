@@ -6,6 +6,7 @@ import com.example.mvc.chap05.dto.SignUpRequestDTO;
 import com.example.mvc.chap05.dto.response.LoginUserResponseDTO;
 import com.example.mvc.chap05.entity.Member;
 import com.example.mvc.chap05.repository.MemberMapper;
+import com.example.mvc.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,7 @@ public class MemberService {
         //화면에 보여줄 일부정보
 
         LoginUserResponseDTO dto = LoginUserResponseDTO.builder().account(member.getAccount()).nickName(member.getName()).email(member.getEmail()).build();
-        session.setAttribute("login",dto);
+        session.setAttribute(LoginUtil.LOGIN_KEY,dto);
         //세션의 수명을 설정
         session.setMaxInactiveInterval(60*60); //1시간
     }

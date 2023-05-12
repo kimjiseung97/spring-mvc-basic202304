@@ -13,4 +13,5 @@ public class BoardWriteRequstDTO {
     private String title;
 
     private String content;
+
 }
