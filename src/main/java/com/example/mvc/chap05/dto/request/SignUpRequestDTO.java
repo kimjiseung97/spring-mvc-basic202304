@@ -1,4 +1,4 @@
-package com.example.mvc.chap05.dto;
+package com.example.mvc.chap05.dto.request;
 
 import lombok.*;
 

@@ -1,6 +1,6 @@
 package com.example.mvc.chap05.entity;
 
-import com.example.mvc.chap05.dto.BoardWriteRequstDTO;
+import com.example.mvc.chap05.dto.request.BoardWriteRequstDTO;
 import lombok.*;
 
 import java.time.LocalDateTime;

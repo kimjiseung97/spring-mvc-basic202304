@@ -1,13 +1,11 @@
 package com.example.mvc.chap05.service;
 
-import com.example.mvc.chap05.dto.BoardListResponseDTO;
-import com.example.mvc.chap05.dto.BoardWriteRequstDTO;
-import com.example.mvc.chap05.dto.BorderDetailResponseDTO;
-import com.example.mvc.chap05.dto.page.Page;
+import com.example.mvc.chap05.dto.response.BoardListResponseDTO;
+import com.example.mvc.chap05.dto.request.BoardWriteRequstDTO;
+import com.example.mvc.chap05.dto.response.BorderDetailResponseDTO;
 import com.example.mvc.chap05.dto.page.Search;
 import com.example.mvc.chap05.entity.Board;
 import com.example.mvc.chap05.repository.BoardMapper;
-import com.example.mvc.chap05.repository.BoardRepository;
 import com.example.mvc.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

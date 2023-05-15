@@ -1,6 +1,7 @@
 package com.example.mvc.util;
 
 import com.example.mvc.chap05.dto.response.LoginUserResponseDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +10,8 @@ public class LoginUtil {
 
     //로그인 세션 키
     public static final String LOGIN_KEY = "login";
+    //자동로그인 쿠키이름
+    public static final String AUTO_LOGIN_COOKIE = "auto";
 
     //로그인 여부 확인하는 메서드
     public static boolean isLogin(HttpSession session){
@@ -21,5 +24,18 @@ public class LoginUtil {
         LoginUserResponseDTO loginUserInfo = (LoginUserResponseDTO)session.getAttribute(LOGIN_KEY);
 
         return loginUserInfo.getAccount();
+    }
+
+    //관리자인지 확인해주는 메서드
+    public static boolean isAdmin(HttpSession session){
+        LoginUserResponseDTO attribute = (LoginUserResponseDTO) session.getAttribute(LOGIN_KEY);
+
+        return attribute.getAuth().equals("ADMIN");
+    }
+
+    //내가 쓴 게시물인지 확인해주는 메서드
+    //로그인한 사람 계정명과 실제 게시물 계정명
+    public static boolean isMine(HttpSession session,String targetAccount){
+        return targetAccount.equals(getCurrentLoginMemberAccount(session));
     }
 }

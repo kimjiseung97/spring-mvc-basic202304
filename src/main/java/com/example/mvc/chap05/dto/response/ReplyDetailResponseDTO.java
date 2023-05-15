@@ -1,4 +1,4 @@
-package com.example.mvc.chap05.dto;
+package com.example.mvc.chap05.dto.response;
 
 import com.example.mvc.chap05.entity.Reply;
 import com.fasterxml.jackson.annotation.JsonFormat;

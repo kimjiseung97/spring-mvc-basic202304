@@ -1,8 +1,9 @@
 package com.example.mvc.chap05.service;
 
 
-import com.example.mvc.chap05.dto.LoginRequestDTO;
-import com.example.mvc.chap05.dto.SignUpRequestDTO;
+import com.example.mvc.chap05.dto.request.AutoLoginDTO;
+import com.example.mvc.chap05.dto.request.LoginRequestDTO;
+import com.example.mvc.chap05.dto.request.SignUpRequestDTO;
 import com.example.mvc.chap05.dto.response.LoginUserResponseDTO;
 import com.example.mvc.chap05.entity.Member;
 import com.example.mvc.chap05.repository.MemberMapper;
@@ -13,7 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import java.time.LocalDateTime;
 
 import static com.example.mvc.chap05.service.LoginResult.*;
 
@@ -44,7 +49,7 @@ public class MemberService {
         return flagNum==1;
     }
 
-    public LoginResult authenticate(LoginRequestDTO dto) {
+    public LoginResult authenticate(LoginRequestDTO dto, HttpSession session, HttpServletResponse response) {
 
         Member foundmember = memberMapper.findMember(dto.getAccount());
         //회원가입 여부 확인
@@ -52,11 +57,27 @@ public class MemberService {
             log.info("{} - 회원가입 안했음",dto.getAccount());
             return NO_ACC;
         }
+
         //비밀번호 일치 확인
         if(!encoder.matches(dto.getPassword(),foundmember.getPassword())){
             log.info("비밀번호 불 일치!");
             return NO_PW;
         }
+        //자동로그인 체크 여부 확인
+        if(dto.isAutoLogin()){
+            //1. 쿠키 생성 - 쿠키값에 세션아이디 저장
+            Cookie autoLoginCookie = new Cookie(LoginUtil.AUTO_LOGIN_COOKIE,session.getId());
+            //2 .쿠키 세팅 - 수명이랑 사용경로
+            int limitTime = 60 * 60 * 24 * 90;
+            autoLoginCookie.setMaxAge(limitTime);
+            autoLoginCookie.setPath("/"); //전체경로
+            //3. 쿠키를 클라이언트에 응답전송
+            response.addCookie(autoLoginCookie);
+
+            //4. DB에도 쿠키에 저장된 값과 수명을 저장
+            memberMapper.saveAutoLogin(AutoLoginDTO.builder().sessionId(session.getId()).account(dto.getAccount()).limitTime(LocalDateTime.now().plusDays(90)).build());
+        }
+        log.info("{}님 로그인 성공!", foundmember.getName());
 
         return SUCCESS;
     }
@@ -73,7 +94,7 @@ public class MemberService {
 
         //화면에 보여줄 일부정보
 
-        LoginUserResponseDTO dto = LoginUserResponseDTO.builder().account(member.getAccount()).nickName(member.getName()).email(member.getEmail()).build();
+        LoginUserResponseDTO dto = LoginUserResponseDTO.builder().account(member.getAccount()).auth(String.valueOf(member.getAuth())).nickName(member.getName()).email(member.getEmail()).build();
         session.setAttribute(LoginUtil.LOGIN_KEY,dto);
         //세션의 수명을 설정
         session.setMaxInactiveInterval(60*60); //1시간

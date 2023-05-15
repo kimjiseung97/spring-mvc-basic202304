@@ -1,12 +1,11 @@
 package com.example.mvc.chap05.controller;
 
-import com.example.mvc.chap05.dto.BoardListResponseDTO;
-import com.example.mvc.chap05.dto.BoardWriteRequstDTO;
-import com.example.mvc.chap05.dto.page.Page;
+import com.example.mvc.chap05.dto.response.BoardListResponseDTO;
+import com.example.mvc.chap05.dto.request.BoardWriteRequstDTO;
+import com.example.mvc.chap05.dto.response.BorderDetailResponseDTO;
 import com.example.mvc.chap05.dto.page.PageMaker;
 import com.example.mvc.chap05.dto.page.Search;
 import com.example.mvc.chap05.service.BoardService;
-import com.example.mvc.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -91,8 +89,9 @@ public class BoardController {
     @GetMapping("/detail")
     public String detail(int bno, @ModelAttribute("s") Search search, Model model){
         System.out.println("/board/detail : GET");
-        model.addAttribute("b",boardService.getDetail(bno));
-        return "/chap05/detail";
+        BorderDetailResponseDTO detail = boardService.getDetail(bno);
+        model.addAttribute("b",detail);
+        return "chap05/detail";
     }
 
 

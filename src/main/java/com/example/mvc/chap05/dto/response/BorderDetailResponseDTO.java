@@ -1,5 +1,6 @@
-package com.example.mvc.chap05.dto;
+package com.example.mvc.chap05.dto.response;
 
+import com.example.mvc.chap05.dto.response.BoardListResponseDTO;
 import com.example.mvc.chap05.entity.Board;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

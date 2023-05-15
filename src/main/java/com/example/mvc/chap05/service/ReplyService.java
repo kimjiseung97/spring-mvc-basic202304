@@ -1,9 +1,9 @@
 package com.example.mvc.chap05.service;
 
-import com.example.mvc.chap05.dto.ReplyDetailResponseDTO;
-import com.example.mvc.chap05.dto.ReplyListResponseDTO;
-import com.example.mvc.chap05.dto.ReplyModifyRequestDTO;
-import com.example.mvc.chap05.dto.ReplyPostRequestDTO;
+import com.example.mvc.chap05.dto.response.ReplyDetailResponseDTO;
+import com.example.mvc.chap05.dto.response.ReplyListResponseDTO;
+import com.example.mvc.chap05.dto.request.ReplyModifyRequestDTO;
+import com.example.mvc.chap05.dto.request.ReplyPostRequestDTO;
 import com.example.mvc.chap05.dto.page.Page;
 import com.example.mvc.chap05.dto.page.PageMaker;
 import com.example.mvc.chap05.entity.Reply;

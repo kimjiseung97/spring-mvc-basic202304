@@ -1,12 +1,9 @@
-package com.example.mvc.chap05.dto;
+package com.example.mvc.chap05.dto.response;
 
-import com.example.mvc.chap05.dto.page.Page;
 import com.example.mvc.chap05.dto.page.PageMaker;
-import com.example.mvc.chap05.entity.Reply;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.example.mvc.chap05.dto.response.ReplyDetailResponseDTO;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 @Setter
 @Getter

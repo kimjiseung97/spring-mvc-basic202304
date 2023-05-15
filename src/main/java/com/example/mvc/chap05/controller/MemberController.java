@@ -1,14 +1,13 @@
 package com.example.mvc.chap05.controller;
 
-import com.example.mvc.chap05.dto.LoginRequestDTO;
-import com.example.mvc.chap05.dto.SignUpRequestDTO;
+import com.example.mvc.chap05.dto.request.LoginRequestDTO;
+import com.example.mvc.chap05.dto.request.SignUpRequestDTO;
 import com.example.mvc.chap05.service.LoginResult;
 import com.example.mvc.chap05.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,7 +69,7 @@ public class MemberController {
         //리다이렉션시 두번째 응답에 데이터를 보내기 위함
         log.info("/members/sign-in POST ! :"+dto);
 
-        LoginResult result = memberService.authenticate(dto);
+        LoginResult result = memberService.authenticate(dto,request.getSession(),response);
 
         //로그인 성공시
         if(result== SUCCESS){
