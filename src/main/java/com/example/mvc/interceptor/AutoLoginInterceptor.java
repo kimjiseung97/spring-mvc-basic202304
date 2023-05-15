@@ -7,6 +7,7 @@ import com.example.mvc.chap05.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.util.WebUtils;
 
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 
 import static com.example.mvc.util.LoginUtil.AUTO_LOGIN_COOKIE;
 
+@Configuration
 @RequiredArgsConstructor
 public class AutoLoginInterceptor implements HandlerInterceptor {
 

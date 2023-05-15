@@ -2,7 +2,9 @@ package com.example.mvc.util;
 
 import com.example.mvc.chap05.dto.response.LoginUserResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.util.WebUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 //회원 인증 인가 관련 상수와 메서드를 가진 객체
@@ -16,6 +18,11 @@ public class LoginUtil {
     //로그인 여부 확인하는 메서드
     public static boolean isLogin(HttpSession session){
         return session.getAttribute(LOGIN_KEY)!=null;
+
+    }
+    //자동 로그인 여부 확인
+    public static boolean isAutoLogin(HttpServletRequest request){
+        return WebUtils.getCookie(request,AUTO_LOGIN_COOKIE) !=null;
 
     }
 

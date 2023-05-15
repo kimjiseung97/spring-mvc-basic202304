@@ -9,12 +9,15 @@ import com.example.mvc.chap05.entity.Member;
 import com.example.mvc.chap05.repository.MemberMapper;
 import com.example.mvc.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -103,5 +106,20 @@ public class MemberService {
     //멤버 정보를 가져오는 서비스기능
     public Member getMember(String account){
         return memberMapper.findMember(account);
+    }
+
+    public void autoLoginClear(HttpServletRequest request, HttpServletResponse response) {
+        //1. 자동로그인 쿠키를 가져온다
+        Cookie c = WebUtils.getCookie(request, LoginUtil.AUTO_LOGIN_COOKIE);
+
+        //2. 쿠키를 삭제한다.
+        // -> 쿠키의 수명을 0초로 만들어서 다시 클라이언트에게 응답
+        if(c!=null) {
+            c.setMaxAge(0);
+            response.addCookie(c);
+
+            //3. 데이터베이스에도 자동로그인을 해제한다
+            memberMapper.saveAutoLogin(AutoLoginDTO.builder().sessionId("none").limitTime(LocalDateTime.now()).account(LoginUtil.getCurrentLoginMemberAccount(request.getSession())).build());
+        }
     }
 }

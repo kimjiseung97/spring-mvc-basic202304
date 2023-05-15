@@ -4,6 +4,7 @@ import com.example.mvc.chap05.dto.request.LoginRequestDTO;
 import com.example.mvc.chap05.dto.request.SignUpRequestDTO;
 import com.example.mvc.chap05.service.LoginResult;
 import com.example.mvc.chap05.service.MemberService;
+import com.example.mvc.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -94,15 +95,24 @@ public class MemberController {
 
     //로그아웃 요청
     @GetMapping("/sign-out")
-    public String signOut(HttpServletRequest request){
-        //세션에서 login정보를 제거
+    public String signOut(HttpServletRequest request,HttpServletResponse response){
+
         HttpSession session = request.getSession();
+        //로그인 중인지 확인
+        if(LoginUtil.isLogin(session)){
+            //자동 로그인 상태라면 해제한다
+            if(LoginUtil.isAutoLogin(request)){
+                memberService.autoLoginClear(request,response);
+            }
+
+        }
+        //세션에서 login정보를 제거
         session.removeAttribute("login");
 
         //세션을 아예 초기화(세션만료 시간)
         session.invalidate();
 
-        return "redirect:/";
+        return "redirect:/members/sign-in";
     }
 
 
