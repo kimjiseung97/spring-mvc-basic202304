@@ -2,6 +2,7 @@ package com.example.mvc.chap05.entity;
 
 import lombok.*;
 import org.springframework.cglib.core.Local;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -38,5 +39,9 @@ public class Member {
     private LocalDateTime regDate;
 
     private LocalDateTime limitTime;
+
+    private String profileImage;
+
+
 
 }

@@ -9,7 +9,6 @@ import com.example.mvc.chap05.entity.Member;
 import com.example.mvc.chap05.repository.MemberMapper;
 import com.example.mvc.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,10 +33,10 @@ public class MemberService {
     private MemberMapper memberMapper;
     private final PasswordEncoder encoder;
     //회원가입 처리 서비스
-    public boolean join(final SignUpRequestDTO dto){
+    public boolean join(final SignUpRequestDTO dto, final String savePath){
 
         //dto를 entity로 변환
-        Member member = Member.builder().account(dto.getAccount()).email(dto.getEmail()).name(dto.getName()).password(encoder.encode(dto.getPassword())).build();
+        Member member = Member.builder().account(dto.getAccount()).email(dto.getEmail()).name(dto.getName()).password(encoder.encode(dto.getPassword())).profileImage(savePath).build();
 
 
 

@@ -1,13 +1,10 @@
 package com.example.mvc.chap05.service;
 
-import com.example.mvc.chap05.dto.request.LoginRequestDTO;
 import com.example.mvc.chap05.dto.request.SignUpRequestDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class MemberServiceTest {
@@ -25,7 +22,7 @@ class MemberServiceTest {
         dto.setEmail("ABCD@bbb.com");
 
         //when
-        memberService.join(dto);
+        memberService.join(dto, savePath);
     }
 
 //    @Test

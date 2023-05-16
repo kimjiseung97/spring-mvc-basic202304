@@ -4,6 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,7 +30,7 @@ public class FileUtil {
             String rootPath){
         //원본 파일명을 중복이없는 랜덤 이름으로 변경
         //ex) 상어.png -> akllajshlajslask-akksdalskdjaslkka_상어.png
-        String NewFileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+        String newFileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
         //이 파일을 저장할 폴더를 날짜별 폴더를 생성
         // D:/spring-prj/upload/2023/05/16/asdasdasdasd_상어.png
@@ -37,12 +38,16 @@ public class FileUtil {
 
         //파일 업로드를 수행
         try {
-            file.transferTo(new File(newPath,NewFileName));
+            file.transferTo(new File(newPath,newFileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //저장된 파일의 풀 경로
+        String fullPath = newPath + "/" + newFileName;
 
-        return "";
+        //fullPath = d:/abc/upload/2023/05/16/djsf.jpg
+        //rootPath = d:/abc/upload
+        return fullPath.substring(rootPath.length()-1);
     }
 
     /*
