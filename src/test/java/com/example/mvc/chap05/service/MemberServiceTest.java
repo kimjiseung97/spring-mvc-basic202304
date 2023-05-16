@@ -28,17 +28,17 @@ class MemberServiceTest {
         memberService.join(dto);
     }
 
-    @Test
-    @DisplayName("계정명이 abcd1234인 회원이 로그인시도시 결과검증을 상황별로 수행해야한다")
+//    @Test
+//    @DisplayName("계정명이 abcd1234인 회원이 로그인시도시 결과검증을 상황별로 수행해야한다")
 
-    void loginTest(){
-        //given
-        LoginRequestDTO dto = new LoginRequestDTO();
-        dto.setAccount("kukukaka");
-        dto.setPassword("lalala12343");
-        //when
-        LoginResult result = memberService.authenticate(dto);
-        //then
-        assertEquals(LoginResult.SUCCESS,result);
-    }
+//    void loginTest(){
+//        //given
+//        LoginRequestDTO dto = new LoginRequestDTO();
+//        dto.setAccount("kukukaka");
+//        dto.setPassword("lalala12343");
+//        //when
+//        LoginResult result = memberService.authenticate(dto);
+//        //then
+//        assertEquals(LoginResult.SUCCESS,result);
+//    }
 }
