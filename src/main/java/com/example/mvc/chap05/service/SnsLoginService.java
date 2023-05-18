@@ -1,5 +1,8 @@
 package com.example.mvc.chap05.service;
 
+import com.example.mvc.chap05.dto.request.SignUpRequestDTO;
+import com.example.mvc.chap05.dto.sns.KakaoUserDTO;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,8 +18,10 @@ import java.util.Objects;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class SnsLoginService {
 
+    private final MemberService memberService;
     //카카오 로그인 처리
     public void kakaoService(Map<String,String> requestMap){
         //인가코드를 통해 토큰 발급받기
@@ -24,10 +29,17 @@ public class SnsLoginService {
         log.info("token : {}",accessToken);
 
         //토큰을 통해 사용자 정보 가져오기
-        getkakaoUserInfo(accessToken);
+        KakaoUserDTO dto = getkakaoUserInfo(accessToken);
+
+        //사용자 정보로 우리 서비스 회원가입 진행
+        memberService.join(
+                SignUpRequestDTO.builder().account(dto.getKakaoAccount().getEmail()).email(dto.getKakaoAccount().getEmail()).name(dto.getKakaoAccount().getProfile().getNickname()).password("9999").build(),
+                dto.getKakaoAccount().getProfile().getProfileImageUrl()
+        );
+
     }
 
-    private void getkakaoUserInfo(String accessToken) {
+    private KakaoUserDTO getkakaoUserInfo(String accessToken) {
         String requestUri = "https://kapi.kakao.com/v2/user/me";
 
         // 요청 헤더 설정
@@ -36,16 +48,20 @@ public class SnsLoginService {
 
         // 요청 보내기
         RestTemplate template = new RestTemplate();
-        ResponseEntity<Map> responseEntity = template.exchange(
+        ResponseEntity<KakaoUserDTO> responseEntity = template.exchange(
                 requestUri,
                 HttpMethod.GET,
                 new HttpEntity<>(headers),
-                Map.class
+                KakaoUserDTO.class
         );
 
         // 응답 바디 읽기
-        Map<String, Object> responseData = responseEntity.getBody();
+        KakaoUserDTO responseData = responseEntity.getBody();
         log.info("user profile: {}", responseData);
+        // ex)닉네임 가져오기
+        responseData.getKakaoAccount().getProfile().getNickname();
+
+        return responseData;
 
     }
 

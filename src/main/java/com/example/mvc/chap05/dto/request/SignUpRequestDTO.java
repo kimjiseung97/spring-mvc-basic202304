@@ -13,6 +13,8 @@ import javax.validation.constraints.Size;
 @EqualsAndHashCode
 @NoArgsConstructor
 @ToString
+@AllArgsConstructor
+@Builder
 public class SignUpRequestDTO {
 
     @NotBlank
