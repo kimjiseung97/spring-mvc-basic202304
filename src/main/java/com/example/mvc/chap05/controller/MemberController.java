@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.*;
@@ -44,10 +45,14 @@ public class MemberController {
     @PostMapping("/sign-up")
     public String signUp(SignUpRequestDTO dto){
         log.info("/members/sign-up POST ! -{}", dto);
+        MultipartFile profileImage = dto.getProfileImage();
         log.info("프로필 사진이름 : {}",dto.getProfileImage().getOriginalFilename());
         //실제 로컬 스토리지에 파일을 업로드하는 로직
 
-        String savePath = FileUtil.uploadFile(dto.getProfileImage(), rootPath);
+        String savePath = null;
+        if (!profileImage.isEmpty()) {
+            savePath = FileUtil.uploadFile(dto.getProfileImage(), rootPath);
+        }
 
         boolean flag = memberService.join(dto,savePath);
 

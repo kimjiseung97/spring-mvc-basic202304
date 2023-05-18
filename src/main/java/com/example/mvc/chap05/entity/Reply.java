@@ -35,4 +35,8 @@ public class Reply {
 
     private long boardNo;
 
+    private String account;
+
+    private String profileImage;
+
 }

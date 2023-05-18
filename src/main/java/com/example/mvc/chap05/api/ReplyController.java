@@ -12,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/replies")
@@ -43,7 +45,7 @@ public class ReplyController {
     public ResponseEntity<?> create(
             //요청 메시지 바디에 json으로 보내주세요
             //요청데이터 검증하겠다 @Validated
-            @Validated @RequestBody ReplyPostRequestDTO dto, BindingResult result //검증결과를 가진객체
+            @Validated @RequestBody ReplyPostRequestDTO dto, BindingResult result, HttpSession  session //검증결과를 가진객체
     ) {
         //입력값 검증에 걸리면 4xx 상태코드 리턴
         if(result.hasErrors()){
@@ -54,7 +56,7 @@ public class ReplyController {
         //서비스에 비즈니스 오직 처리 위임
         ReplyListResponseDTO responseDTO;
         try {
-            responseDTO = replyService.register(dto);
+            responseDTO = replyService.register(dto,session);
         } catch (Exception e) {
             //문제 발생상황을 클라이언트에게 응답
             log.warn("500 Status code response!! caused by : {}", e.getMessage());
