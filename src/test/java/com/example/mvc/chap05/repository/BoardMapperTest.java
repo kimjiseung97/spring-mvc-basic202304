@@ -31,7 +31,7 @@ class BoardMapperTest {
     @DisplayName("제목으로 검색한 내용이 나와야한다")
     void SearchTest(){
         Search search = new Search();
-        search.setType("title");
+        search.setType("tc");
         search.setKeyword("안녕");
         List<Board> all = mapper.findAll(search);
         System.out.println(all.toString());

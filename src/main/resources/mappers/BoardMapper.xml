@@ -9,25 +9,26 @@
         board_no, title,
         content, view_count, reg_date_time, account
         FROM tbl_board
-        <if test="type =='title'">
-            WHERE title LIKE CONCAT('%',#{keyword}, '%')
+        <if test="type == 'title'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
         </if>
-        <if test="type =='content'">
-            WHERE content LIKE CONCAT('%',#{keyword}, '%')
+        <if test="type == 'content'">
+            WHERE content LIKE CONCAT('%', #{keyword}, '%')
         </if>
-        <if test="type =='tc'">
-            WHERE  LIKE CONCAT('%',#{keyword}, '%')
-                OR content LIKE CONCAT('%', #{keyword}, '%')
+        <if test="type == 'tc'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
+            OR content LIKE CONCAT('%', #{keyword}, '%')
         </if>
         ORDER BY board_no DESC
-        LIMIT #{pageStart},#{amount}
+        LIMIT #{pageStart}, #{amount}
     </select>
 
     <select id="findOne" resultType="board">
         SELECT
         B.board_no, B.title,
-        B.content, B.view_count, B.reg_date_time,
-        B.account,M.name AS writer
+        B.content, B.view_count,
+        B.reg_date_time,
+        B.account, M.name AS writer
         FROM tbl_board B
         JOIN tbl_member M
         ON B.account = M.account
@@ -37,7 +38,7 @@
     <insert id="save">
         INSERT INTO tbl_board
         (title, content, account)
-        VALUES (#{title}, #{content},#{account})
+        VALUES (#{title}, #{content}, #{account})
     </insert>
 
     <delete id="deleteByNo">
@@ -48,20 +49,20 @@
     <update id="upViewCount">
         update tbl_board
         set view_count = view_count + 1
-        where board_no =#{boardNo}
+        where board_no = #{boardNo};
     </update>
 
     <select id="count" resultType="int">
         SELECT COUNT(*)
         FROM tbl_board
-        <if test="type =='title'">
-            WHERE title LIKE CONCAT('%',#{keyword}, '%')
+        <if test="type == 'title'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
         </if>
-        <if test="type =='content'">
-            WHERE content LIKE CONCAT('%',#{keyword}, '%')
+        <if test="type == 'content'">
+            WHERE content LIKE CONCAT('%', #{keyword}, '%')
         </if>
-        <if test="type =='tc'">
-            WHERE  LIKE CONCAT('%',#{keyword}, '%')
+        <if test="type == 'tc'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
             OR content LIKE CONCAT('%', #{keyword}, '%')
         </if>
     </select>

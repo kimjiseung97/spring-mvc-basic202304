@@ -7,20 +7,23 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
 
-    <%@ include file ="../include/static-head.jsp"%>
+    <%@ include file="../include/static-head.jsp" %>
+
+    <link rel="stylesheet" href="/assets/css/list.css">
 
 </head>
 
 <body>
-
-    <%@ include file ="../include/header.jsp"%>
+    
+    <%@ include file="../include/header.jsp" %>
 
     <div id="wrap">
-        
+
 
         <div class="main-title-wrapper">
             <h1 class="main-title">꾸러기 게시판</h1>
-            <c:if test="${login!=null}">
+
+            <c:if test="${login != null}">
                 <button class="add-btn">새 글 쓰기</button>
             </c:if>
         </div>
@@ -47,7 +50,6 @@
             </div>
         </div>
 
-
         <div class="card-container">
 
             <c:forEach var="b" items="${bList}">
@@ -71,12 +73,13 @@
                             
                         </div>
                     </section>
+
                     <c:if test="${login.account == b.account || login.auth == 'ADMIN'}">
-                    <div class="card-btn-group">
-                        <button class="del-btn" data-href="/board/delete?bno=${b.boardNo}">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
+                        <div class="card-btn-group">
+                            <button class="del-btn" data-href="/board/delete?bno=${b.boardNo}">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
                     </c:if>
                 </div>
             </c:forEach>
@@ -93,6 +96,10 @@
                 <ul class="pagination pagination-lg pagination-custom">
 
                     
+                    <c:if test="${maker.page.pageNo != 1}">
+                        <li class="page-item"><a class="page-link" href="/board/list?pageNo=1&type=${s.type}&keyword=${s.keyword}">&lt;&lt;</a></li>
+                    </c:if>
+
                     <c:if test="${maker.prev}">
                         <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.begin - 1}&type=${s.type}&keyword=${s.keyword}">prev</a></li>
                     </c:if>
@@ -107,11 +114,10 @@
                     <c:if test="${maker.next}">
                         <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.end + 1}&type=${s.type}&keyword=${s.keyword}">next</a></li>
                     </c:if>
-                    
+
                     <c:if test="${maker.page.pageNo != maker.finalPage}">
                         <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.finalPage}&type=${s.type}&keyword=${s.keyword}">&gt;&gt;</a></li>
                     </c:if>
-
                 </ul>
             </nav>
 
@@ -130,7 +136,6 @@
             </div>
         </div>
     </div>
-
 
 
     <script>
@@ -168,7 +173,7 @@
 
                 // section태그에 붙은 글번호 읽기
                 const bno = e.target.closest('section.card').dataset.bno;
-                // 요청 보내기
+                // 상세 조회 요청 보내기
                 window.location.href= '/board/detail?bno=' + bno + '&pageNo=${s.pageNo}&type=${s.type}&keyword=${s.keyword}';
             }
         });
@@ -179,7 +184,7 @@
                 modal.style.display = 'none';
             }
         });
-        
+
         //========== 게시물 목록 스크립트 ============//
 
         function removeDown(e) {
@@ -262,14 +267,11 @@
             }
         }
 
-
-
         appendPageActive();
         fixSearchOption();
 
 
     </script>
-
 </body>
 
 </html>

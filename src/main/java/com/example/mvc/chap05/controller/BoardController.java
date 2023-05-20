@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -28,7 +29,7 @@ public class BoardController {
     private final BoardService boardService; //서비스에게 의존함
 
     @GetMapping("/list") //세부 url getMapping
-    public String list(Model model, Search page, HttpServletRequest request) {
+    public String list(Model model, Search page, HttpServletRequest request) throws IOException {
 //        boolean flag = false;
 //        //세션을 확인
 //        Object login = request.getSession().getAttribute("login");
