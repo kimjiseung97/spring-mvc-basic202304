@@ -5,6 +5,7 @@ import com.example.mvc.chap05.dto.request.AutoLoginDTO;
 import com.example.mvc.chap05.dto.request.LoginRequestDTO;
 import com.example.mvc.chap05.dto.request.SignUpRequestDTO;
 import com.example.mvc.chap05.dto.response.LoginUserResponseDTO;
+import com.example.mvc.chap05.entity.LoginMethod;
 import com.example.mvc.chap05.entity.Member;
 import com.example.mvc.chap05.repository.MemberMapper;
 import com.example.mvc.util.LoginUtil;
@@ -36,7 +37,7 @@ public class MemberService {
     public boolean join(final SignUpRequestDTO dto, final String savePath){
 
         //dto를 entity로 변환
-        Member member = Member.builder().account(dto.getAccount()).email(dto.getEmail()).name(dto.getName()).password(encoder.encode(dto.getPassword())).profileImage(savePath).build();
+        Member member = Member.builder().account(dto.getAccount()).email(dto.getEmail()).name(dto.getName()).password(encoder.encode(dto.getPassword())).profileImage(savePath).loginMethod(LoginMethod.COMMON).build();
 
 
 
@@ -45,7 +46,7 @@ public class MemberService {
     }
 
     //중복검사 서비스처리
-    public boolean checkSingUpValue(String type, String keyword){
+    public boolean checkSignUpValue(String type, String keyword){
         int flagNum = memberMapper.isDuplicate(type, keyword);
 
         return flagNum==1;

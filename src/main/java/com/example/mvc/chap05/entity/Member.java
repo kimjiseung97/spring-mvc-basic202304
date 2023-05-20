@@ -42,6 +42,8 @@ public class Member {
 
     private String profileImage;
 
+    private LoginMethod loginMethod;
+
 
 
 }

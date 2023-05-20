@@ -68,7 +68,7 @@ public class MemberController {
     @GetMapping("/check")
     public ResponseEntity<?> check(String type, String keyword){
         log.info("/members/check?type={}&keyword={} ASYNC GET!",type, keyword);
-        boolean flag = memberService.checkSingUpValue(type, keyword);
+        boolean flag = memberService.checkSignUpValue(type, keyword);
         return ResponseEntity.ok().body(flag);
     }
 

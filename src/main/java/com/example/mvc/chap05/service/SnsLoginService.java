@@ -13,6 +13,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 import java.util.Objects;
 
@@ -23,7 +24,7 @@ public class SnsLoginService {
 
     private final MemberService memberService;
     //카카오 로그인 처리
-    public void kakaoService(Map<String,String> requestMap){
+    public void kakaoService(Map<String,String> requestMap, HttpSession session){
         //인가코드를 통해 토큰 발급받기
         String accessToken = getkakaoAccessToken(requestMap);
         log.info("token : {}",accessToken);
@@ -31,11 +32,19 @@ public class SnsLoginService {
         //토큰을 통해 사용자 정보 가져오기
         KakaoUserDTO dto = getkakaoUserInfo(accessToken);
 
+        KakaoUserDTO.KakaoAccount kakaoAccount = dto.getKakaoAccount();
+        //아이디 이메일 중복확인 검사
+        if (!memberService.checkSignUpValue("account", kakaoAccount.getEmail())
+                && !memberService.checkSignUpValue("email", kakaoAccount.getEmail()))
         //사용자 정보로 우리 서비스 회원가입 진행
         memberService.join(
-                SignUpRequestDTO.builder().account(dto.getKakaoAccount().getEmail()).email(dto.getKakaoAccount().getEmail()).name(dto.getKakaoAccount().getProfile().getNickname()).password("9999").build(),
-                dto.getKakaoAccount().getProfile().getProfileImageUrl()
+                SignUpRequestDTO.builder().account(kakaoAccount.getEmail()).email(kakaoAccount.getEmail()).name(kakaoAccount.getProfile().getNickname()).password("9999").build(),
+                kakaoAccount.getProfile().getProfileImageUrl()
         );
+
+
+        //우리 서비스 로그인 처리
+        memberService.maintainLoginState(session,kakaoAccount.getEmail());
 
     }
 
