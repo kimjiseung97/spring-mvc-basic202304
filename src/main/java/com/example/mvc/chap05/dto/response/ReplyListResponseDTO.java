@@ -17,5 +17,4 @@ public class ReplyListResponseDTO {
     private PageMaker pageInfo; // 페이지정보
     private List<ReplyDetailResponseDTO> replies; //댓글 리스트
 
-
 }

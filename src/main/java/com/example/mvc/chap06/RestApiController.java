@@ -19,7 +19,7 @@ public class RestApiController {
         return  "안녕하세요";
     }
 
-    @GetMapping("foods")
+    @GetMapping("/foods")
     public List<String> foods(){
         //String[] foodList = {"탕수육","족발","마라탕"};
         List<String> foodList = List.of("탕수육","족발","마라탕");
