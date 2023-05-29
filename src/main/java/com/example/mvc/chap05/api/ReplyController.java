@@ -73,7 +73,7 @@ public class ReplyController {
         if(replyNo==null){
             return ResponseEntity.badRequest().body("댓글 번호를 보내주세요!");
         }
-        log.info("/api/v1/replies/{}DELETE!",replyNo);
+        log.info("/api/v1/replies/{} DELETE!",replyNo);
         try {
             ReplyListResponseDTO responseDTO = replyService.delete(replyNo);
             return ResponseEntity.ok().body(responseDTO);
